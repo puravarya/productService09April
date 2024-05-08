@@ -1,13 +1,15 @@
 package dev.purav.productservice09april.controllers;
 
+import dev.purav.productservice09april.dtos.RequestBodyProductDto;
 import dev.purav.productservice09april.models.Product;
 import dev.purav.productservice09april.services.FakeStoreProductService;
 import dev.purav.productservice09april.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -24,17 +26,26 @@ public class ProductController {
     }
     //ProductService productService = new FakeStoreProductService();
     @PostMapping("/products")
-    public void createProduct(){
-
+    public Product createProduct(@RequestBody RequestBodyProductDto request ){
+        return productService.createProduct(request.getTitle(),
+                                request.getDescription(),
+                                      request.getPrice(),
+                                   request.getCategory(),
+                                     request.getImage());
     }
     @GetMapping("/products/{id}")
-    public Product getProductDetails(@PathVariable("id") int id){
+    public Product getProductDetails(@PathVariable("id") Long id){
          return productService.getSingleProduct(id);
     }
     @GetMapping("/products")
-    public void getAllProducts(){
-
+    public ResponseEntity<List<Product>> getAllProducts(){
+        throw new RuntimeException();
+//         List<Product>  products = productService.getAllProducts();
+//         return new ResponseEntity<>(products, HttpStatus.CONFLICT);
     }
+
+
+
     public void updateProduct(){
 
     }

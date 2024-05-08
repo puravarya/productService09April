@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface ProductService {
 
-    Product getSingleProduct(int productId);
+    Product getSingleProduct(Long productId);
     List<Product> getAllProducts();
     Product createProduct(String title,
                   String description,
-                  int price,
-                  Category category,
+                  double price,
+                  String category,
                   String imageURL);
 
 
