@@ -20,7 +20,7 @@ public class ProductController {
     etc
      */
     ProductService productService;
-    public ProductController(@Qualifier("fakestore")ProductService productService) {
+    public ProductController(@Qualifier("selfproductservice")ProductService productService) {
         this.productService = productService;
         //qualifier is used to inject the dependency to be injected here
     }
