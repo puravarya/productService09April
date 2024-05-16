@@ -35,7 +35,7 @@ public class ProductController {
     }
     @GetMapping("/products/{id}")
     public Product getProductDetails(@PathVariable("id") Long id){
-         return productService.getSingleProduct(id);
+         return productService.getSingleProdcut(id);
     }
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(){

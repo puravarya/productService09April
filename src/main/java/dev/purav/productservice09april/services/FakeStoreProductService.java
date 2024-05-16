@@ -1,9 +1,7 @@
 package dev.purav.productservice09april.services;
 
 import dev.purav.productservice09april.dtos.FakeStoreProductdto;
-import dev.purav.productservice09april.models.Category;
 import dev.purav.productservice09april.models.Product;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,8 +9,10 @@ import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service("fakestore")
-public class FakeStoreProductService implements ProductService{
+public abstract class FakeStoreProductService implements ProductService{
 
     private final ResourceUrlProvider mvcResourceUrlProvider;
     private RestTemplate restTemplate;
@@ -22,7 +22,7 @@ public class FakeStoreProductService implements ProductService{
         this.mvcResourceUrlProvider = mvcResourceUrlProvider;
     }
     @Override
-    public Product getSingleProduct(Long productId) {
+    public Optional<Product> getSingleProduct(Long productId) {
         if(productId == 0){
             throw new IllegalArgumentException("Inavalid ProductId, please try out some other ProductId");
         }
@@ -30,7 +30,7 @@ public class FakeStoreProductService implements ProductService{
         ResponseEntity<FakeStoreProductdto> fakeStoreProductResponse = restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/1" + productId, FakeStoreProductdto.class);
 
-        return fakeStoreProductResponse.getBody().toProduct();
+        return Optional.ofNullable(fakeStoreProductResponse.getBody().toProduct());
 
 
     }
