@@ -8,9 +8,16 @@ import dev.purav.productservice09april.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service("selfproductservice")
 public class SelfProductService implements ProductService{
-private CategoryRepository categoryRepository;
+    @Override
+    public Product getSingleProdcut(Long id) {
+        return null;
+    }
+
+    private CategoryRepository categoryRepository;
 private ProductRepository productRepository;
 
 public SelfProductService(CategoryRepository categoryRepository, ProductRepository productRepository) {
@@ -45,8 +52,8 @@ public SelfProductService(CategoryRepository categoryRepository, ProductReposito
     // I need to confirm if category class already exist
     }
     @Override
-    public Product getSingleProduct(Long productId) {
-        return null;
+    public Optional<Product> getSingleProduct(Long productId) {
+        return productRepository.findById(productId);
     }
     @Override
     public List<Product> getAllProducts() {
